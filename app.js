@@ -1,6 +1,7 @@
 const searchSongs = async () => {
     const searchText = document.getElementById('search-field').value;
     const url = `https://api.lyrics.ovh/suggest/${searchText}`
+    toggleSpinner();
     fetch(url)
         .then(res => res.json())
         .then(data => displaySongs(data.data))
@@ -27,6 +28,7 @@ const displaySongs = songs => {
          </div>
         `
         songContainer.appendChild(songDiv);
+        toggleSpinner();
     });
 }
 const getLyric = async (artist, title) => {
@@ -36,7 +38,7 @@ const getLyric = async (artist, title) => {
         const data = await res.json()
         displayLyrics(data.lyrics)
     }
-    catch(error){
+    catch (error) {
         displayError('Sorry! I failed to load lyrics, Please try again later!')
     }
 }
@@ -55,4 +57,13 @@ const displayLyrics = lyrics => {
 const displayError = error => {
     const errorTag = document.getElementById('error-message');
     errorTag.innerText = error;
+}
+
+const toggleSpinner = () => {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.classList.toggle('d-lg-none');
+
+    const songs = document.getElementById('song-container');
+    songs.classList.toggle('d-lg-none');
+
 }
