@@ -1,3 +1,15 @@
+var searchButton = document.getElementById("search-button");
+var searchField = document.getElementById("search-field");
+
+searchField.addEventListener("keypress", function (event) {
+    // event.preventDefault();
+    // console.log("Keycode", event.key , event.keyCode);
+    if (event.key === 'Enter') {
+        searchButton.click();
+    }
+
+});
+
 const searchSongs = async () => {
     const searchText = document.getElementById('search-field').value;
     const url = `https://api.lyrics.ovh/suggest/${searchText}`
